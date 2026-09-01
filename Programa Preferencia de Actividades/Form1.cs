@@ -37,7 +37,7 @@ namespace Programa_Preferencia_de_Actividades
             // ========================
             // 1.- VALIDAR EL NOMBRE
             // ========================
-            if (string.IsNullOrWhiteSpace(boxNombre.Text)) 
+            if (string.IsNullOrWhiteSpace(boxNombre.Text))
             {
                 MessageBox.Show
                     (
@@ -54,7 +54,7 @@ namespace Programa_Preferencia_de_Actividades
 
             List<string> actividades = new List<string>();
 
-            if (chkDeportes.Checked ) 
+            if (chkDeportes.Checked)
             {
                 actividades.Add("Deportes");
             }
@@ -80,7 +80,7 @@ namespace Programa_Preferencia_de_Actividades
             // AL MENOS UNA ACTIVIDAD
             // ===========================================
 
-            if (actividades.Count == 0) 
+            if (actividades.Count == 0)
             {
                 MessageBox.Show(
                     "Por favor, selecciona al menos una actividad.",
@@ -89,6 +89,42 @@ namespace Programa_Preferencia_de_Actividades
                     MessageBoxIcon.Warning
                     );
             }
+            // ===========================================
+            // 4.- OBTENER LA MODALIDAD SELECCIONADA
+            // ===========================================
+            string modalidad = "";
+            if (radPresencial.Checked)
+            {
+                modalidad = "Presencial";
+            }
+            else if (radHibrida.Checked)
+            {
+                modalidad = "Híbrida";
+            }
+            else if (radLinea.Checked)
+            {
+                modalidad = "En Línea";
+            }
+
+            else if (string.IsNullOrWhiteSpace(modalidad))
+            {
+                MessageBox.Show(
+                    "Selecciona una modalidad",
+                    "Validación",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                    );
+            }
+            // =============================================
+            // 5.- MOSTRAR LOS DATOS EN EL TEXTBOX
+            // =============================================
+            string resumen =
+                "Resumen de Prefeencias\r\n" +
+                "--------------------------------\r\n" +
+                "Nombre:" + txtNombre.Text + "\r\n" +
+                "Actividades: " + string.Join(", ", actividades) + "\r\n" +
+                "Modalidad: " + modalidad;
+            txtResu.Text = resumen;
         }
 
         private void Programa_Load(object sender, EventArgs e)
@@ -99,6 +135,26 @@ namespace Programa_Preferencia_de_Actividades
         private void label1_Click_1(object sender, EventArgs e)
         {
 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            //Limpiar el nombre
+            boxNombre.Clear(); //txtNombre="";
+            //Desmarcamos el CheckBox
+            chkDeportes.Checked = false;
+            chkMusica.Checked = false;
+            chkArte.Checked = false;
+            chkProgra.Checked = false;
+            chkLectura.Checked = false;
+            //Desmarcar Radiobutton
+            radLinea.Checked = false;
+            radHibrida.Checked = false;
+            radPresencial.Checked = false;
+            //Limpiar Resumen
+            txtResu.Clear();
+            //Refresamos el cursor al nombre
+            boxNombre.Focus();
         }
     }
 }
